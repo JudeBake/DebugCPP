@@ -18,13 +18,48 @@ namespace DebugCPP
 
 DebugLogBase::DebugLogBase()
 {
-	// TODO Auto-generated constructor stub
+	//Do nothing since there's nothing special to do.
+}
 
+DebugLogBase::DebugLogBase(const DebugLogBase& iDebugLogBase)
+{
+	messages = iDebugLogBase.messages;
+}
+
+DebugLogBase& DebugLogBase::operator=(const DebugLogBase iDebugLogBase)
+{
+	messages = iDebugLogBase.messages;
+	return *this;
+}
+
+size_t DebugLogBase::getLoggedMsgNb(void)
+{
+	return messages.size();
+}
+
+void DebugLogBase::pushLogMsg(const string& iMsg)
+{
+	messages.push_back(iMsg);
+}
+
+void DebugLogBase::flushLog(void)
+{
+	//Do nothing, need to be implemented by
+}
+
+bool DebugLogBase::isEmpty(void)
+{
+	return messages.empty();
+}
+
+void DebugLogBase::clear(void)
+{
+	messages.clear();
 }
 
 DebugLogBase::~DebugLogBase()
 {
-	// TODO Auto-generated destructor stub
+	//Do nothing since there's nothing special to do.
 }
 
 } /* namespace DebugCPP */
