@@ -30,11 +30,11 @@ namespace DebugCPP
 
 class DebugLogBase
 {
-private:
+protected:
 	/**
 	 * the log messages.
 	 */
-	deque<string*> messages;
+	deque<string> messages;
 
 public:
 	/**
@@ -45,9 +45,9 @@ public:
 	/**
 	 * \brief DebugLogBase copy constructor.
 	 *
-	 * \param iDebugLug The DebugLog reference from which to initialize.
+	 * \param iDebugLugBase The DebugLog reference from which to initialize.
 	 */
-	DebugLogBase(const DebugLogBase& iDebugLog);
+	DebugLogBase(const DebugLogBase& iDebugLogBase);
 
 	/**
 	 * \brief DebugLogBase assignment operator.
@@ -73,11 +73,9 @@ public:
 	void pushLogMsg(const string& iMsg);
 
 	/**
-	 * \brief Pop the next message from the front.
-	 *
-	 * \return A read-only reference to the first message in the log.
+	 * \brief flush the log to the set output.
 	 */
-	const string& popLogMsg(void);
+	virtual void flushLog();
 
 	/**
 	 * \brief Give the indication if the message buffer is empty or not.
