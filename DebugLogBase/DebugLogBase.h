@@ -4,7 +4,8 @@
  * \brief This is the base class for all debug log in this library.
  *
  * This class is the base class for all debug log. It encapsulate a string
- * queue that contains the messages to log and give access to it.
+ * queue that contains the messages to log and give access to it. The access is
+ * given through a push and pop methods that give a FIFO behavior.
  *
  * \date Created on: Jan 24, 2014
  * \date Last change on: &DATE&
@@ -65,18 +66,30 @@ public:
 	size_t getLoggedMsgNb(void);
 
 	/**
-	 * \brief Log a message.
+	 * \brief Push a log message to the back.
 	 *
 	 * \param iMsg A reference of the message to log.
 	 */
 	void pushLogMsg(const string& iMsg);
 
 	/**
-	 * \brief Pop the next message.
+	 * \brief Pop the next message from the front.
 	 *
 	 * \return A read-only reference to the first message in the log.
 	 */
 	const string& popLogMsg(void);
+
+	/**
+	 * \brief Give the indication if the message buffer is empty or not.
+	 *
+	 * \return 1 if the message buffer is empty, 0 otherwise.
+	 */
+	bool isEmpty(void);
+
+	/**
+	 * \brief Clear the message buffer.
+	 */
+	void clear(void);
 
 	/**
 	 * \brief DebugLogBase destructor.

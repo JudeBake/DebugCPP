@@ -1,6 +1,6 @@
 /**
  * \file DebugLogBase_test.cpp
- * TODO: add description of the class/file.
+ * \brief DebugLogBase unit test cases.
  *
  * \date Created on: Jan 24, 2014
  * \date Last change on: &DATE&
@@ -13,7 +13,11 @@
 
 #include "DebugLogBase.h"
 
-namespace DebugCPP
+#include <boost/test/unit_test.hpp>
+
+using DebugCPP::DebugLogBase;
+
+BOOST_AUTO_TEST_CASE(construtor)
 {
 
-} /* namespace DebugCPP */
+}
