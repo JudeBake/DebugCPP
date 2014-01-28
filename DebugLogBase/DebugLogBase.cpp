@@ -28,7 +28,11 @@ DebugLogBase::DebugLogBase(size_t iSize)
 
 DebugLogBase::DebugLogBase(const DebugLogBase& iDebugLogBase)
 {
-	messages = iDebugLogBase.messages;
+	if (this != &iDebugLogBase)
+	{
+		messages.reserve(iDebugLogBase.getMsgBufferSize());
+		messages = iDebugLogBase.messages;
+	}
 }
 
 DebugLogBase& DebugLogBase::operator=(DebugLogBase iDebugLogBase)
@@ -37,7 +41,18 @@ DebugLogBase& DebugLogBase::operator=(DebugLogBase iDebugLogBase)
 	return *this;
 }
 
-size_t DebugLogBase::getMsgBufferSize(void)
+bool DebugLogBase::operator==(const DebugLogBase& iDebugLogBaseY)
+{
+	return (this->messages.capacity() == iDebugLogBaseY.messages.capacity()) &&
+			(this->messages == iDebugLogBaseY.messages);
+}
+
+bool DebugLogBase::operator!=(const DebugLogBase& iDebugLogBaseY)
+{
+	return !(*this == iDebugLogBaseY);
+}
+
+size_t DebugLogBase::getMsgBufferSize(void) const
 {
 	return messages.capacity();
 }
@@ -47,7 +62,7 @@ void DebugLogBase::resizeMsgBuffer(size_t iSize)
 	messages.reserve(iSize);
 }
 
-size_t DebugLogBase::getLoggedMsgNb(void)
+size_t DebugLogBase::getLoggedMsgNb(void) const
 {
 	return messages.size();
 }
@@ -62,7 +77,7 @@ void DebugLogBase::flushLog(void)
 	//Do nothing, need to be implemented by derived classes.
 }
 
-bool DebugLogBase::isEmpty(void)
+bool DebugLogBase::isEmpty(void) const
 {
 	return messages.empty();
 }
