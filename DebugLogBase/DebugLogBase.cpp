@@ -21,15 +21,30 @@ DebugLogBase::DebugLogBase()
 	//Do nothing since there's nothing special to do.
 }
 
+DebugLogBase::DebugLogBase(size_t iSize)
+{
+	messages.reserve(iSize);
+}
+
 DebugLogBase::DebugLogBase(const DebugLogBase& iDebugLogBase)
 {
 	messages = iDebugLogBase.messages;
 }
 
-DebugLogBase& DebugLogBase::operator=(const DebugLogBase iDebugLogBase)
+DebugLogBase& DebugLogBase::operator=(DebugLogBase iDebugLogBase)
 {
-	messages = iDebugLogBase.messages;
+	std::swap(messages, iDebugLogBase.messages);
 	return *this;
+}
+
+size_t DebugLogBase::getMsgBufferSize(void)
+{
+	return messages.capacity();
+}
+
+void DebugLogBase::resizeMsgBuffer(size_t iSize)
+{
+	messages.reserve(iSize);
 }
 
 size_t DebugLogBase::getLoggedMsgNb(void)
@@ -44,7 +59,7 @@ void DebugLogBase::pushLogMsg(const string& iMsg)
 
 void DebugLogBase::flushLog(void)
 {
-	//Do nothing, need to be implemented by
+	//Do nothing, need to be implemented by derived classes.
 }
 
 bool DebugLogBase::isEmpty(void)

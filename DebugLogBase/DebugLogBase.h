@@ -4,8 +4,9 @@
  * \brief This is the base class for all debug log in this library.
  *
  * This class is the base class for all debug log. It encapsulate a string
- * queue that contains the messages to log and give access to it. The access is
- * given through a push and pop methods that give a FIFO behavior.
+ * vector as a buffer for messages to log. It give the possibility to change
+ * the size of the buffer and to push new message in the log and a virtual
+ * method to flush the log through the output.
  *
  * \date Created on: Jan 24, 2014
  * \date Last change on: &DATE&
@@ -20,10 +21,10 @@
 #define DEBUGLOGBASE_H_
 
 #include <string>
-#include <queue>
+#include <vector>
 
 using std::string;
-using std::deque;
+using std::vector;
 
 namespace DebugCPP
 {
@@ -32,15 +33,22 @@ class DebugLogBase
 {
 protected:
 	/**
-	 * the log messages.
+	 * The log messages.
 	 */
-	deque<string> messages;
+	vector<string> messages;
 
 public:
 	/**
 	 * \brief Basic constructor of DebugLogBase.
 	 */
 	DebugLogBase();
+
+	/**
+	 * \brief DebugLogBase constructor with initial message buffer size.
+	 *
+	 * \param iSize The initial message buffer size.
+	 */
+	DebugLogBase(size_t iSize);
 
 	/**
 	 * \brief DebugLogBase copy constructor.
@@ -56,7 +64,21 @@ public:
 	 *
 	 * \return The DebugLogBase reference of the left hand operand.
 	 */
-	DebugLogBase& operator=(const DebugLogBase iDebugLogBase);
+	DebugLogBase& operator=(DebugLogBase iDebugLogBase);
+
+	/**
+	 * \brief Get the message buffer size.
+	 *
+	 * \return The message buffer size.
+	 */
+	size_t getMsgBufferSize(void);
+
+	/**
+	 * \brief Resize the message buffer.
+	 *
+	 * \param iSize The new size of the message buffer.
+	 */
+	void resizeMsgBuffer(size_t iSize);
 
 	/**
 	 * \brief Get the number of messages logged.
@@ -73,7 +95,8 @@ public:
 	void pushLogMsg(const string& iMsg);
 
 	/**
-	 * \brief flush the log to the set output.
+	 * \brief Flush the log to the its output. Must be implemented by the
+	 * 		  derived classes.
 	 */
 	virtual void flushLog();
 
