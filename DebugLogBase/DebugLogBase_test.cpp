@@ -17,6 +17,9 @@
 
 using DebugCPP::DebugLogBase;
 
+/**
+ * \brief Constructors test cases.
+ */
 BOOST_AUTO_TEST_CASE(construtors_test_cases)
 {
 	const size_t emptyBuffer = 0;
@@ -29,6 +32,6 @@ BOOST_AUTO_TEST_CASE(construtors_test_cases)
 
 	const size_t testSize2 = 13;
 	DebugLogBase testObject2(testSize2);
-	BOOST_CHECK_EQUAL(testObject2.getLoggedMsgNb(), (size_t)0);
+	BOOST_CHECK_EQUAL(testObject2.getLoggedMsgNb(), emptyBuffer);
 	BOOST_CHECK_EQUAL(testObject2.getMsgBufferSize(), testSize2);
 }

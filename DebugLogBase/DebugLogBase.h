@@ -53,7 +53,7 @@ public:
 	/**
 	 * \brief DebugLogBase copy constructor.
 	 *
-	 * \param iDebugLugBase The DebugLog reference from which to initialize.
+	 * \param iDebugLogBase The DebugLog reference from which to initialize.
 	 */
 	DebugLogBase(const DebugLogBase& iDebugLogBase);
 
