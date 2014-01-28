@@ -2,6 +2,8 @@
  * \file main_unit_test.cpp
  * \brief This is the main file for unit testing.
  *
+ * This file is not included in the Debug or Release build.
+ *
  * \date Created on: Jan 26, 2014
  * \date Last change on: &DATE&
  *

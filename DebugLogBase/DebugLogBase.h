@@ -1,5 +1,6 @@
 /**
  * \file DebugLogBase.h
+ * \brief DebugLogBase class declaration.
  * \class DebugCPP::DebugLogBase
  * \brief This is the base class for all debug log in this library.
  *

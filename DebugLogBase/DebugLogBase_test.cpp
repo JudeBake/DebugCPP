@@ -2,6 +2,8 @@
  * \file DebugLogBase_test.cpp
  * \brief DebugLogBase unit test cases.
  *
+ * This file is not included in the Debug or Release build.
+ *
  * \date Created on: Jan 24, 2014
  * \date Last change on: &DATE&
  *
