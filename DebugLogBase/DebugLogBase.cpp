@@ -1,6 +1,6 @@
 /**
  * \file DebugLogBase.cpp
- * TODO: add description of the class/file.
+ * \brief DebugLogBase class implementation.
  *
  * \date Created on: Jan 24, 2014
  * \date Last change on: &DATE&
