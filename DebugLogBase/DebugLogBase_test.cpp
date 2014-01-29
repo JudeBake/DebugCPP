@@ -154,6 +154,7 @@ BOOST_AUTO_TEST_CASE(DebugLogBase_buffer_manipulation)
 		const size_t refSize = 2;
 		const size_t testSize1 = 10;
 		const size_t testSize2 = 54;
+		const size_t testSize3 = 36;
 		const size_t testSizeNearMax = 99;
 		const size_t testSizeOverMax = 200;
 		DebugLogBase testObject(refSize);
@@ -161,6 +162,8 @@ BOOST_AUTO_TEST_CASE(DebugLogBase_buffer_manipulation)
 		testObject.expandMsgBuffer(testSize1);
 		BOOST_CHECK_EQUAL(testObject.getMsgBufferSize(), testSize1);
 		testObject.expandMsgBuffer(testSize2);
+		BOOST_CHECK_EQUAL(testObject.getMsgBufferSize(), testSize2);
+		testObject.expandMsgBuffer(testSize3);
 		BOOST_CHECK_EQUAL(testObject.getMsgBufferSize(), testSize2);
 		testObject.expandMsgBuffer(testSizeNearMax);
 		BOOST_CHECK_EQUAL(testObject.getMsgBufferSize(), testSizeNearMax);
