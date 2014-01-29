@@ -18,16 +18,30 @@ namespace DebugCPP
 
 DebugLogBase::DebugLogBase()
 {
-	//Do nothing since there's nothing special to do.
+	MAX_BUFFER_SIZE = DebugCPP::MAX_LOG_BUFFER_SIZE < messages.max_size() ?
+			DebugCPP::MAX_LOG_BUFFER_SIZE : messages.max_size();
 }
 
 DebugLogBase::DebugLogBase(size_t iSize)
 {
-	messages.reserve(iSize);
+	MAX_BUFFER_SIZE = DebugCPP::MAX_LOG_BUFFER_SIZE < messages.max_size() ?
+			DebugCPP::MAX_LOG_BUFFER_SIZE : messages.max_size();
+
+	if (iSize <= MAX_BUFFER_SIZE)
+	{
+		messages.reserve(iSize);
+	}
+	else
+	{
+		messages.reserve(MAX_BUFFER_SIZE);
+	}
 }
 
 DebugLogBase::DebugLogBase(const DebugLogBase& iDebugLogBase)
 {
+	MAX_BUFFER_SIZE = DebugCPP::MAX_LOG_BUFFER_SIZE < messages.max_size() ?
+			DebugCPP::MAX_LOG_BUFFER_SIZE : messages.max_size();
+
 	if (this != &iDebugLogBase)
 	{
 		messages.reserve(iDebugLogBase.getMsgBufferSize());
@@ -38,6 +52,7 @@ DebugLogBase::DebugLogBase(const DebugLogBase& iDebugLogBase)
 DebugLogBase& DebugLogBase::operator=(DebugLogBase iDebugLogBase)
 {
 	std::swap(messages, iDebugLogBase.messages);
+
 	return *this;
 }
 
@@ -52,14 +67,26 @@ bool DebugLogBase::operator!=(const DebugLogBase& iDebugLogBaseY)
 	return !(*this == iDebugLogBaseY);
 }
 
+size_t DebugLogBase::getMsgBufferMaxSize(void) const
+{
+	return MAX_BUFFER_SIZE;
+}
+
 size_t DebugLogBase::getMsgBufferSize(void) const
 {
 	return messages.capacity();
 }
 
-void DebugLogBase::resizeMsgBuffer(size_t iSize)
+void DebugLogBase::expandMsgBuffer(size_t iSize)
 {
-	messages.reserve(iSize);
+	if (iSize <= MAX_BUFFER_SIZE)
+	{
+		messages.reserve(iSize);
+	}
+	else
+	{
+		messages.reserve(MAX_BUFFER_SIZE);
+	}
 }
 
 size_t DebugLogBase::getLoggedMsgNb(void) const
@@ -67,9 +94,22 @@ size_t DebugLogBase::getLoggedMsgNb(void) const
 	return messages.size();
 }
 
-void DebugLogBase::pushLogMsg(const string& iMsg)
+bool DebugLogBase::pushLogMsg(const string& iMsg)
 {
-	messages.push_back(iMsg);
+	bool result = false;
+
+	if (messages.size() == messages.capacity())
+	{
+		messages.push_back(iMsg);
+		result = true;
+	}
+
+	return result;
+}
+
+bool DebugLogBase::isFull(void)
+{
+	return messages.size() == messages.capacity();
 }
 
 void DebugLogBase::flushLog(void)

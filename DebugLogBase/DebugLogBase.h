@@ -30,13 +30,25 @@ using std::vector;
 namespace DebugCPP
 {
 
+/**
+ * \brief The maximal size of a debug log buffer.
+ *
+ * Used to determine the maximal possible buffer size of a debug log.
+ */
+static const size_t MAX_LOG_BUFFER_SIZE = 100;
+
 class DebugLogBase
 {
 protected:
 	/**
-	 * The log messages.
+	 * \brief The log message buffer.
 	 */
 	vector<string> messages;
+
+	/**
+	 * \brief The maximal buffer size of the debug log.
+	 */
+	size_t MAX_BUFFER_SIZE;
 
 public:
 	/**
@@ -46,6 +58,9 @@ public:
 
 	/**
 	 * \brief DebugLogBase constructor with initial message buffer size.
+	 *
+	 * If the desired size is bigger than the maximal size (MAX_BUFFER_SIZE),
+	 * the buffer size is set to the maximal size
 	 *
 	 * \param iSize The initial message buffer size.
 	 */
@@ -94,6 +109,13 @@ public:
 	bool operator!=(const DebugLogBase& iDebugLogBaseY);
 
 	/**
+	 * \brief Get the maximal possible size of the buffer for the debug log.
+	 *
+	 * \return The maximal possible size of the debug log.
+	 */
+	size_t getMsgBufferMaxSize(void) const;
+
+	/**
 	 * \brief Get the message buffer size.
 	 *
 	 * \return The message buffer size.
@@ -101,11 +123,15 @@ public:
 	size_t getMsgBufferSize(void) const;
 
 	/**
-	 * \brief Resize the message buffer.
+	 * \brief Expand the message buffer.
+	 *
+	 * If the desired size is bigger than the maximal size (MAX_BUFFER_SIZE),
+	 * the buffer size is set to the maximal size. If the desired size is
+	 * smaller than the actual buffer size, nothing is done.
 	 *
 	 * \param iSize The new size of the message buffer.
 	 */
-	void resizeMsgBuffer(size_t iSize);
+	void expandMsgBuffer(size_t iSize);
 
 	/**
 	 * \brief Get the number of messages logged.
@@ -118,8 +144,18 @@ public:
 	 * \brief Push a log message to the back.
 	 *
 	 * \param iMsg A reference of the message to log.
+	 *
+	 * \return True if the operation was successful, false otherwise meaning the buffer
+	 * 		   is full and need to be flush.
 	 */
-	void pushLogMsg(const string& iMsg);
+	bool pushLogMsg(const string& iMsg);
+
+	/**
+	 * \brief Give the indication if the the message buffer is full.
+	 *
+	 * \return True if the message buffer is full, false otherwise.
+	 */
+	bool isFull(void);
 
 	/**
 	 * \brief Flush the log to the its output. Must be implemented by the
@@ -130,7 +166,7 @@ public:
 	/**
 	 * \brief Give the indication if the message buffer is empty or not.
 	 *
-	 * \return 1 if the message buffer is empty, 0 otherwise.
+	 * \return True if the message buffer is empty, false otherwise.
 	 */
 	bool isEmpty(void) const;
 
