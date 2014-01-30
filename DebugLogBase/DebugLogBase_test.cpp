@@ -13,13 +13,20 @@
  * \version Commit Id: &REVISION&
  */
 
+#ifdef __TEST__
 #include <boost/test/unit_test.hpp>
 #include <string>
 
+#include "DebugCPP.h"
 #include "DebugLogBase.h"
 
 using std::string;
 using DebugCPP::DebugLogBase;
+
+/**
+ * \brief Empty buffer message number constant.
+ */
+const size_t emptyBuffer = 0;
 
 /**
  * \brief Constructors test cases.
@@ -29,8 +36,6 @@ using DebugCPP::DebugLogBase;
  */
 BOOST_AUTO_TEST_CASE(DebugLogBase_construtors)
 {
-	const size_t emptyBuffer = 0;
-
 	/**
 	 * \test Basic constructor test case.
 	 *
@@ -140,7 +145,8 @@ BOOST_AUTO_TEST_CASE(DebugLogBase_operators)
 BOOST_AUTO_TEST_CASE(DebugLogBase_buffer_manipulation)
 {
 	/**
-	 * \test Buffer expansion method.
+	 * \test Buffer expansion method. This test also test the buffer size getter
+	 * 		 methods.
 	 *
 	 * Pass requirements:
 	 * 	- The buffer must expand to the new size if it's smaller than the
@@ -170,4 +176,33 @@ BOOST_AUTO_TEST_CASE(DebugLogBase_buffer_manipulation)
 		testObject.expandMsgBuffer(testSizeOverMax);
 		BOOST_CHECK_EQUAL(testObject.getMsgBufferSize(), testObject.getMsgBufferMaxSize());
 	}
+
+	/**
+	 * \test Messages number getter method.
+	 *
+	 * Pass requirement:
+	 * 	- The method must return the number of messages in the buffer.
+	 */
+	{
+		const size_t testMsgNb1 = 10;
+		const size_t testMsgNb2 = DebugCPP::MAX_LOG_BUFFER_SIZE;
+		DebugLogBase testObject(DebugCPP::MAX_LOG_BUFFER_SIZE);
+		BOOST_REQUIRE_EQUAL(testObject.getMsgBufferSize(), DebugCPP::MAX_LOG_BUFFER_SIZE);
+		char testChar;
+		for (unsigned int i = 0; i < testMsgNb1; i++)
+		{
+			testChar = (char)(i + 0x32);
+			testObject.pushLogMsg(string(&testChar));
+		}
+		BOOST_CHECK_EQUAL(testObject.getLoggedMsgNb(), testMsgNb1);
+		testObject.clear();
+				BOOST_REQUIRE_EQUAL(testObject.getLoggedMsgNb(), emptyBuffer);
+		for (unsigned int i = 0; i < testMsgNb2; i++)
+		{
+			testChar = (char)(i + 0x32);
+			testObject.pushLogMsg(string(&testChar));
+		}
+		BOOST_CHECK_EQUAL(testObject.getLoggedMsgNb(), testMsgNb2);
+	}
 }
+#endif

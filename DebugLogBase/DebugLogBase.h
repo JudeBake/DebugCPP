@@ -30,13 +30,6 @@ using std::vector;
 namespace DebugCPP
 {
 
-/**
- * \brief The maximal size of a debug log buffer.
- *
- * Used to determine the maximal possible buffer size of a debug log.
- */
-static const size_t MAX_LOG_BUFFER_SIZE = 100;
-
 class DebugLogBase
 {
 protected:
@@ -80,7 +73,7 @@ public:
 	 *
 	 * \return The DebugLogBase reference of the left hand operand.
 	 */
-	DebugLogBase& operator=(DebugLogBase iDebugLogBase);
+	DebugLogBase& operator=(DebugLogBase& iDebugLogBase);
 
 	/**
 	 * \brief DebugLogBase equality comparison operator.
@@ -155,13 +148,18 @@ public:
 	 *
 	 * \return True if the message buffer is full, false otherwise.
 	 */
-	bool isFull(void);
+	bool isFull(void) const;
 
 	/**
 	 * \brief Flush the log to the its output. Must be implemented by the
 	 * 		  derived classes.
 	 */
-	virtual void flushLog();
+	virtual void flushLog()
+#ifdef __TEST__
+	;
+#else
+	= 0;
+#endif
 
 	/**
 	 * \brief Give the indication if the message buffer is empty or not.

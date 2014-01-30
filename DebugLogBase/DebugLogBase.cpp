@@ -11,6 +11,7 @@
  * \version Commit Id: &REVISION&
  */
 
+#include "DebugCPP.h"
 #include "DebugLogBase.h"
 
 namespace DebugCPP
@@ -49,7 +50,7 @@ DebugLogBase::DebugLogBase(const DebugLogBase& iDebugLogBase)
 	}
 }
 
-DebugLogBase& DebugLogBase::operator=(DebugLogBase iDebugLogBase)
+DebugLogBase& DebugLogBase::operator=(DebugLogBase& iDebugLogBase)
 {
 	std::swap(messages, iDebugLogBase.messages);
 
@@ -98,7 +99,7 @@ bool DebugLogBase::pushLogMsg(const string& iMsg)
 {
 	bool result = false;
 
-	if (messages.size() == messages.capacity())
+	if (messages.size() <= messages.capacity())
 	{
 		messages.push_back(iMsg);
 		result = true;
@@ -107,15 +108,17 @@ bool DebugLogBase::pushLogMsg(const string& iMsg)
 	return result;
 }
 
-bool DebugLogBase::isFull(void)
+bool DebugLogBase::isFull(void) const
 {
 	return messages.size() == messages.capacity();
 }
 
+#ifdef __TEST__
 void DebugLogBase::flushLog(void)
 {
-	//Do nothing, need to be implemented by derived classes.
+	//Here only to ease test.
 }
+#endif
 
 bool DebugLogBase::isEmpty(void) const
 {
