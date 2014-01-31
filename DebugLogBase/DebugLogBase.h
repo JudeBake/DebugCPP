@@ -4,10 +4,13 @@
  * \class DebugCPP::DebugLogBase
  * \brief This is the base class for all debug log in this library.
  *
- * This class is the base class for all debug log. It encapsulate a string
- * vector as a buffer for messages to log. It give the possibility to change
- * the size of the buffer and to push new message in the log and a virtual
- * method to flush the log through the output.
+ * This class is an abstract class used as the base for all debug log. It
+ * encapsulate a string vector as a buffer for messages to log. It give the
+ * possibility to change the size of the buffer and to push new message in the
+ * log and a virtual method to flush the log through the output.
+ *
+ * In test configuration, this class is made a non-abstract one by implementing
+ * the flush method.
  *
  * \date Created on: Jan 24, 2014
  * \date Last change on: &DATE&
@@ -151,8 +154,12 @@ public:
 	bool isFull(void) const;
 
 	/**
-	 * \brief Flush the log to the its output. Must be implemented by the
-	 * 		  derived classes.
+	 * \brief Flush the log to its output. Must be implemented by the derived
+	 * 		  classes.
+	 *
+	 * In debug and release configuration, this method is pure virtual. It must
+	 * be implemented by derived class.
+	 * In test configuration, this method is implemented to ease testing.
 	 */
 	virtual
 #ifdef __TEST__
@@ -181,8 +188,16 @@ public:
 
 	/**
 	 * \brief DebugLogBase destructor.
+	 *
+	 * Since there is nothing special to do in the base class, the destructor is
+	 * a pure virtual method (except in test configuration).
 	 */
-	virtual ~DebugLogBase();
+	virtual ~DebugLogBase()
+#ifdef __TEST__
+	;
+#else
+	= 0;
+#endif
 };
 
 } /* namespace DebugCPP */

@@ -131,9 +131,11 @@ void DebugLogBase::clear(void)
 	messages.clear();
 }
 
+#ifdef __TEST__
 DebugLogBase::~DebugLogBase()
 {
 	//Do nothing since there's nothing special to do.
 }
+#endif
 
 } /* namespace DebugCPP */
