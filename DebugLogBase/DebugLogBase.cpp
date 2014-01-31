@@ -19,14 +19,14 @@ namespace DebugCPP
 
 DebugLogBase::DebugLogBase()
 {
-	MAX_BUFFER_SIZE = DebugCPP::MAX_LOG_BUFFER_SIZE < messages.max_size() ?
-			DebugCPP::MAX_LOG_BUFFER_SIZE : messages.max_size();
+	MAX_BUFFER_SIZE = MAX_LOG_BUFFER_SIZE < messages.max_size() ?
+			MAX_LOG_BUFFER_SIZE : messages.max_size();
 }
 
 DebugLogBase::DebugLogBase(size_t iSize)
 {
-	MAX_BUFFER_SIZE = DebugCPP::MAX_LOG_BUFFER_SIZE < messages.max_size() ?
-			DebugCPP::MAX_LOG_BUFFER_SIZE : messages.max_size();
+	MAX_BUFFER_SIZE = MAX_LOG_BUFFER_SIZE < messages.max_size() ?
+			MAX_LOG_BUFFER_SIZE : messages.max_size();
 
 	if (iSize <= MAX_BUFFER_SIZE)
 	{
@@ -40,8 +40,8 @@ DebugLogBase::DebugLogBase(size_t iSize)
 
 DebugLogBase::DebugLogBase(const DebugLogBase& iDebugLogBase)
 {
-	MAX_BUFFER_SIZE = DebugCPP::MAX_LOG_BUFFER_SIZE < messages.max_size() ?
-			DebugCPP::MAX_LOG_BUFFER_SIZE : messages.max_size();
+	MAX_BUFFER_SIZE = MAX_LOG_BUFFER_SIZE < messages.max_size() ?
+			MAX_LOG_BUFFER_SIZE : messages.max_size();
 
 	if (this != &iDebugLogBase)
 	{
@@ -95,14 +95,14 @@ size_t DebugLogBase::getLoggedMsgNb(void) const
 	return messages.size();
 }
 
-bool DebugLogBase::pushLogMsg(const string& iMsg)
+PushStatus DebugLogBase::pushLogMsg(const string& iMsg)
 {
-	bool result = false;
+	PushStatus result = PUSH_FAILED;
 
-	if (messages.size() <= messages.capacity())
+	if (messages.size() < messages.capacity())
 	{
 		messages.push_back(iMsg);
-		result = true;
+		result = PUSH_SUCCEDED;
 	}
 
 	return result;
@@ -114,9 +114,10 @@ bool DebugLogBase::isFull(void) const
 }
 
 #ifdef __TEST__
-void DebugLogBase::flushLog(void)
+vector<string>& DebugLogBase::flushLog(void)
 {
 	//Here only to ease test.
+	return messages;
 }
 #endif
 

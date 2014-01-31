@@ -141,7 +141,7 @@ public:
 	 * \return True if the operation was successful, false otherwise meaning the buffer
 	 * 		   is full and need to be flush.
 	 */
-	bool pushLogMsg(const string& iMsg);
+	PushStatus pushLogMsg(const string& iMsg);
 
 	/**
 	 * \brief Give the indication if the the message buffer is full.
@@ -154,7 +154,13 @@ public:
 	 * \brief Flush the log to the its output. Must be implemented by the
 	 * 		  derived classes.
 	 */
-	virtual void flushLog()
+	virtual
+#ifdef __TEST__
+	vector<string>&
+#else
+	void
+#endif
+	flushLog()
 #ifdef __TEST__
 	;
 #else

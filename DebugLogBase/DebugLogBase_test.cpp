@@ -16,11 +16,14 @@
 #ifdef __TEST__
 #include <boost/test/unit_test.hpp>
 #include <string>
+#include <vector>
 
 #include "DebugCPP.h"
 #include "DebugLogBase.h"
 
 using std::string;
+using std::vector;
+
 using DebugCPP::DebugLogBase;
 
 /**
@@ -145,8 +148,7 @@ BOOST_AUTO_TEST_CASE(DebugLogBase_operators)
 BOOST_AUTO_TEST_CASE(DebugLogBase_buffer_manipulation)
 {
 	/**
-	 * \test Buffer expansion method. This test also test the buffer size getter
-	 * 		 methods.
+	 * \test Buffer expansion method and size getter methods test case.
 	 *
 	 * Pass requirements:
 	 * 	- The buffer must expand to the new size if it's smaller than the
@@ -178,7 +180,7 @@ BOOST_AUTO_TEST_CASE(DebugLogBase_buffer_manipulation)
 	}
 
 	/**
-	 * \test Messages number getter method.
+	 * \test Messages number getter method test case.
 	 *
 	 * Pass requirement:
 	 * 	- The method must return the number of messages in the buffer.
@@ -203,6 +205,29 @@ BOOST_AUTO_TEST_CASE(DebugLogBase_buffer_manipulation)
 			testObject.pushLogMsg(string(&testChar));
 		}
 		BOOST_CHECK_EQUAL(testObject.getLoggedMsgNb(), testMsgNb2);
+	}
+
+	/**
+	 * \test Message push method test case.
+	 *
+	 * Pass requirements:
+	 * 	- The method must add the pushed message to the message buffer.
+	 * 	- The method must indicate success if the message was successfully added
+	 * 	  to the buffer, otherwise it indicates a failure (buffer full).
+	 */
+	{
+		const size_t testSize = 10;
+		DebugLogBase testObject(testSize);
+		char testChar;
+		vector<string> testVector(testSize);
+		for (unsigned int i = 0; i < testSize; i++)
+		{
+			testChar = (char)(i + 0x32);
+			testVector[i] = string(&testChar);
+			BOOST_CHECK_EQUAL(testObject.pushLogMsg(testVector[i]), DebugCPP::PUSH_SUCCEDED);
+		}
+		BOOST_CHECK(testObject.flushLog() == testVector);
+		BOOST_CHECK_EQUAL(testObject.pushLogMsg(string(&testChar)), DebugCPP::PUSH_FAILED);
 	}
 }
 #endif

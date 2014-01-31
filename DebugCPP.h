@@ -33,6 +33,20 @@ namespace DebugCPP
  */
 static const size_t MAX_LOG_BUFFER_SIZE = 100;
 
+/**
+ * \enum PushStatus
+ * \brief Constant indicating the if the message pushing was successful or not.
+ *
+ * Possible values:
+ * 	- PUSH_SUCCEDED
+ * 	- PUSH_FAILED
+ */
+typedef enum
+{
+	PUSH_FAILED,
+	PUSH_SUCCEDED
+} PushStatus;
+
 }
 
 #endif /* DEBUGCPP_H_ */
