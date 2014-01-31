@@ -35,7 +35,7 @@ static const size_t MAX_LOG_BUFFER_SIZE = 100;
 
 /**
  * \enum PushStatus
- * \brief Constant indicating the if the message pushing was successful or not.
+ * \brief Constant indicating if the message pushing was successful or not.
  *
  * Possible values:
  * 	- PUSH_SUCCEDED
