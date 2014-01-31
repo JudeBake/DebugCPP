@@ -198,7 +198,7 @@ BOOST_AUTO_TEST_CASE(DebugLogBase_buffer_manipulation)
 		}
 		BOOST_CHECK_EQUAL(testObject.getLoggedMsgNb(), testMsgNb1);
 		testObject.clear();
-				BOOST_REQUIRE_EQUAL(testObject.getLoggedMsgNb(), emptyBuffer);
+		BOOST_REQUIRE_EQUAL(testObject.getLoggedMsgNb(), emptyBuffer);
 		for (unsigned int i = 0; i < testMsgNb2; i++)
 		{
 			testChar = (char)(i + 0x32);
@@ -228,6 +228,36 @@ BOOST_AUTO_TEST_CASE(DebugLogBase_buffer_manipulation)
 		}
 		BOOST_CHECK(testObject.flushLog() == testVector);
 		BOOST_CHECK_EQUAL(testObject.pushLogMsg(string(&testChar)), DebugCPP::PUSH_FAILED);
+	}
+
+	/**
+	 * \test isEmpty, isFull and clear methods test case.
+	 *
+	 * Pass requirements:
+	 * 	- isEmpty must return true if the message buffer is empty, false
+	 * 	  otherwise.
+	 * 	- isFull must return true if the message buffer is full, false otherwise.
+	 * 	- clear must empty the message buffer.
+	 */
+	{
+		const size_t testSize = 10;
+		DebugLogBase testObject(testSize);
+		char testChar;
+		BOOST_CHECK_EQUAL(testObject.isEmpty(), true);
+		BOOST_CHECK_EQUAL(testObject.isFull(), false);
+		for (unsigned int i = 0; i < testSize - 2; i++)
+		{
+			testChar = (char)(i + 0x32);
+			testObject.pushLogMsg(string(&testChar));
+		}
+		BOOST_CHECK_EQUAL(testObject.isEmpty(), false);
+		BOOST_CHECK_EQUAL(testObject.isFull(), false);
+		testObject.pushLogMsg(string(&testChar));
+		testObject.pushLogMsg(string(&testChar));
+		BOOST_CHECK_EQUAL(testObject.isEmpty(), false);
+		BOOST_CHECK_EQUAL(testObject.isFull(), true);
+		testObject.clear();
+		BOOST_CHECK_EQUAL(testObject.getLoggedMsgNb(), emptyBuffer);
 	}
 }
 #endif
