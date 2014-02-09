@@ -3,6 +3,7 @@
 	<name>DebugCPP</name>
 	<comment></comment>
 	<projects>
+		<project>CommonCPP</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
