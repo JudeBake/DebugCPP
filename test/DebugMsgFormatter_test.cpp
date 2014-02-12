@@ -1,6 +1,8 @@
 /**
  * \file DebugMsgFormatter_test.cpp
- * TODO: add description of the class/file.
+ * \brief Unit test cases for DebugMsgFormatter class.
+ *
+ * This file is not included in the Debug and Release build of this library.
  *
  * \date Created on: Feb 8, 2014
  * \date Last change on: &DATE&
@@ -11,9 +13,7 @@
  * \version Commit Id: &REVISION&
  */
 
-#include "DebugMsgFormatter.h"
+#include <boost/test/unit_test.hpp>
 
-namespace DebugCPP
-{
+#include "../DebugMsgFormatter/DebugMsgFormatter.h"
 
-} /* namespace DebugCPP */
