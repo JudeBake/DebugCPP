@@ -65,7 +65,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="FileDebugLog|test|FileLog|main_unit_test.cpp|DebugLogBase|DebugMsgFormatter" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="FileDebugLog|FileLog|main_unit_test.cpp|DebugLogBase|DebugMsgFormatter" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="DebugMsgFormatter"/>
 					</sourceEntries>
 				</configuration>
@@ -124,7 +124,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="FileDebugLog|test|FileLog|main_unit_test.cpp|DebugLogBase|DebugMsgFormatter" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="FileDebugLog|FileLog|main_unit_test.cpp|DebugLogBase|DebugMsgFormatter" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="DebugMsgFormatter"/>
 					</sourceEntries>
 				</configuration>

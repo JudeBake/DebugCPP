@@ -13,6 +13,7 @@
  * \version Commit Id: &REVISION&
  */
 
+//TODO: conditional build on __TEST
 /**
  * \def BOOST_TEST_MODULE
  * \brief Definition of the DebugCPP library unit test cases.

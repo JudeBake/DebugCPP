@@ -13,7 +13,26 @@
  * \version Commit Id: &REVISION&
  */
 
+//TODO: conditional build on __TEST
+#include <string>
+#include <sstream>
+
+#include <Poco/Thread.h>
+
 #include <boost/test/unit_test.hpp>
 
-#include "../DebugMsgFormatter/DebugMsgFormatter.h"
+#include "DebugMsgFormatter_testRunnable.h"
 
+using Poco::Thread;
+
+/**
+ * \test Test the format method of DebugMsgFormatter class.
+ *
+ * pass requirements:
+ * 	- the output string must have the following format:
+ * 	[Timestamp] from [pId] [thread] [source] at line [line number]: [message]
+ */
+BOOST_AUTO_TEST_CASE(formatting_debug_msg)
+{
+
+}
