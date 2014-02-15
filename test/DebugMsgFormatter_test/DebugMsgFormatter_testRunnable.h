@@ -17,7 +17,8 @@
  * \version Commit Id: &REVISION&
  */
 
-//TODO: conditional build on __TEST
+#ifdef __TEST
+
 #ifndef DEBUGMSGFORMATTERTESTRUNNABLE_H_
 #define DEBUGMSGFORMATTERTESTRUNNABLE_H_
 
@@ -47,3 +48,5 @@ public:
 };
 
 #endif /* DEBUGMSGFORMATTERTESTRUNNABLE_H_ */
+
+#endif /* __TEST */

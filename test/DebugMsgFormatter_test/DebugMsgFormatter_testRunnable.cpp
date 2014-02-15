@@ -14,7 +14,8 @@
  * \version Commit Id: &REVISION&
  */
 
-//TODO: conditional build on __TEST
+#ifdef __TEST
+
 #include <string>
 #include <sstream>
 
@@ -81,3 +82,4 @@ void DebugMsgFormatter_testRunnable::run()
 			"The formatted Debug message is not in the good format.");
 }
 
+#endif /* __TEST */

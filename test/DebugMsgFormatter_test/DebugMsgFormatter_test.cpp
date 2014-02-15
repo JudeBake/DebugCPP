@@ -13,9 +13,7 @@
  * \version Commit Id: &REVISION&
  */
 
-//TODO: conditional build on __TEST
-#include <string>
-#include <sstream>
+#ifdef __TEST
 
 #include <Poco/Thread.h>
 
@@ -39,3 +37,5 @@ BOOST_AUTO_TEST_CASE(formatting_debug_msg)
 
 	testThread.start(testRunnable);
 }
+
+#endif /* __TEST */

@@ -161,7 +161,7 @@
 								<option id="gnu.cpp.compiler.lib.release.option.debugging.level.490197123" name="Debug Level" superClass="gnu.cpp.compiler.lib.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.other.other.2071637753" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -std=c++11" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.716616386" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="__TEST__"/>
+									<listOptionValue builtIn="false" value="__TEST"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.include.paths.900713102" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.457962816" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
