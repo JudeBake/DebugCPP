@@ -170,6 +170,7 @@
 								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.lib.release.option.optimization.level.1260960487" name="Optimization Level" superClass="gnu.c.compiler.lib.release.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.lib.release.option.debugging.level.358271473" name="Debug Level" superClass="gnu.c.compiler.lib.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.1216062481" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths"/>
+								<option id="gnu.c.compiler.option.misc.other.1420173941" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.662408648" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.base.459748323" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base"/>
@@ -179,6 +180,7 @@
 								</option>
 								<option id="gnu.cpp.link.option.libs.1947794580" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="PocoFoundation"/>
+									<listOptionValue builtIn="false" value="pthread"/>
 									<listOptionValue builtIn="false" value="boost_unit_test_framework"/>
 								</option>
 								<option id="gnu.cpp.link.option.flags.1541425003" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-static" valueType="string"/>

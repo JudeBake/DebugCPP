@@ -34,5 +34,8 @@ using Poco::Thread;
  */
 BOOST_AUTO_TEST_CASE(formatting_debug_msg)
 {
+	Thread testThread;
+	DebugMsgFormatter_testRunnable testRunnable;
 
+	testThread.start(testRunnable);
 }

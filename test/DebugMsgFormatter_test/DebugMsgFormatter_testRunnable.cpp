@@ -77,6 +77,7 @@ void DebugMsgFormatter_testRunnable::run()
 	//testing the formatter
 	string result;
 	testedObject.format(testMsg, result);
-	BOOST_CHECK(result == attendedResult);
+	BOOST_CHECK_MESSAGE(result == attendedResult,
+			"The formatted Debug message is not in the good format.");
 }
 
