@@ -11,14 +11,17 @@
  * \version Commit Id: &REVISION&
  */
 
-#include <sstream>
+#include <vector>
 
 #include <Poco/DateTimeFormatter.h>
+#include <Poco/NumberFormatter.h>
+#include <Poco/String.h>
 #include <Poco/Timezone.h>
 
 #include "DebugMsgFormatter.h"
 
 using Poco::DateTimeFormatter;
+using Poco::NumberFormatter;
 using Poco::Timezone;
 
 namespace DebugCPP
@@ -36,29 +39,29 @@ DebugMsgFormatter::~DebugMsgFormatter()
 
 void DebugMsgFormatter::format(const Message& msg, std::string& text)
 {
-	std::ostringstream converter;
+	std::vector<std::string> vectorizedOutput;
 
 	//format the time stamp of the message.
-	text = DateTimeFormatter::format(msg.getTime(), "%d/%m/%Y %H:%M:%S",
-									 Timezone::tzd());
+	vectorizedOutput.push_back(DateTimeFormatter::format(msg.getTime(),
+			"%d/%m/%Y %H:%M:%S", Timezone::tzd()));
 
 	//format the message meta data.
-	text += " from ";
-	text +="[";
-	converter << msg.getPid();
-	text += converter.str();
-	text += "] ";
-	text += msg.getThread();
-	text += " ";
-	text += msg.getSource();
-	text += " at line ";
-	converter.str("");
-	converter << msg.getSourceLine();
-	text += converter.str();
-	text += ": ";
+	vectorizedOutput.push_back(std::string("from"));
+	vectorizedOutput.push_back(std::string("["));
+	vectorizedOutput.push_back(NumberFormatter::format(msg.getPid()));
+	vectorizedOutput.push_back(std::string("]"));
+	vectorizedOutput.push_back(msg.getThread());
+	vectorizedOutput.push_back(msg.getSource());
+	vectorizedOutput.push_back(std::string("at line"));
+	vectorizedOutput.push_back(NumberFormatter::format(msg.getSourceLine()));
+	vectorizedOutput.push_back(std::string(":"));
 
 	//add the message text.
-	text += msg.getText();
+	vectorizedOutput.push_back(msg.getText());
+
+	//construct the output string
+	text = Poco::cat(std::string(" "), vectorizedOutput.begin(),
+			vectorizedOutput.end());
 }
 
 } /* namespace DebugCPP */
